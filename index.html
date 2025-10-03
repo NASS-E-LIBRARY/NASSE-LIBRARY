@@ -1,9 +1,10 @@
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NASS E-Library — Tech Cyan Theme</title>
+  <title>NASS E-Library — Tech Cyan Theme (Fixed)</title>
   <style>
     :root{
       --bg-1: #031323;
@@ -25,34 +26,46 @@
     }
     @keyframes bg-move{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-60px,20px,0)}100%{transform:translate3d(0,0,0)}}
 
-    .wrap{max-width:1150px;margin:28px auto;padding:28px}
-    header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
-    header h1{margin:0;font-size:20px;letter-spacing:0.2px;display:flex;align-items:center;gap:12px}
-    header h1 .logo{width:42px;height:42px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(180deg, rgba(92,232,255,0.08), rgba(6,182,212,0.04));box-shadow:0 6px 22px rgba(6,182,212,0.06) inset}
-    header p{margin-left:auto;color:var(--muted);font-size:13px}
+```
+.wrap{max-width:1150px;margin:28px auto;padding:28px}
+header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+header h1{margin:0;font-size:20px;letter-spacing:0.2px;display:flex;align-items:center;gap:12px}
+header h1 .logo{width:42px;height:42px;display:grid;place-items:center;border-radius:10px;background:linear-gradient(180deg, rgba(92,232,255,0.08), rgba(6,182,212,0.04));box-shadow:0 6px 22px rgba(6,182,212,0.06) inset}
+header p{margin-left:auto;color:var(--muted);font-size:13px}
 
-    .how-to-use{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;border:1px solid var(--glass-border);box-shadow:0 6px 18px rgba(2,6,23,0.6);color:var(--muted);max-width:1100px;margin-bottom:16px}
+.how-to-use{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:12px;border:1px solid var(--glass-border);box-shadow:0 6px 18px rgba(2,6,23,0.6);color:var(--muted);max-width:1100px;margin-bottom:16px}
 
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
 
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(2,6,23,0.6);cursor:pointer;border:1px solid var(--glass-border);overflow:hidden;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column;gap:10px}
-    .card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,12,30,0.7)}
-    .card-header{display:flex;align-items:center;gap:12px}
-    .svg-wrap{width:56px;height:56px;flex:0 0 56px;background:linear-gradient(135deg, rgba(92,232,255,0.03), rgba(92,232,255,0.02));border-radius:10px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(6,182,212,0.02) inset;border:1px solid rgba(6,182,212,0.04)}
-    .title{font-weight:700;font-size:15px}
-    .subtitle{font-size:12px;color:var(--muted)}
-    .parts, .levels{display:none;padding-top:10px}
-    .part-tile{background:var(--glass);padding:10px;border-radius:8px;color:var(--muted);margin-bottom:8px;border:1px solid rgba(255,255,255,0.02);}
-    .part-tile:hover{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));}
-    .level-btn{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--bg-1);font-weight:600;background:linear-gradient(90deg,var(--accent-2),var(--accent));box-shadow:0 6px 14px rgba(6,182,212,0.12)}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(2,6,23,0.6);cursor:pointer;border:1px solid var(--glass-border);overflow:hidden;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column;gap:10px}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,12,30,0.7)}
+.card.open{transform:translateY(-6px);box-shadow:0 22px 46px rgba(2,12,30,0.75)}
+.card-header{display:flex;align-items:center;gap:12px}
+.svg-wrap{width:56px;height:56px;flex:0 0 56px;background:linear-gradient(135deg, rgba(92,232,255,0.03), rgba(92,232,255,0.02));border-radius:10px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(6,182,212,0.02) inset;border:1px solid rgba(6,182,212,0.04)}
+.title{font-weight:700;font-size:15px}
+.subtitle{font-size:12px;color:var(--muted)}
+/* parts are hidden until their card is opened */
+.parts { display:none; padding-top:10px }
+/* levels are kept in the DOM and animated via max-height for smooth transitions */
+.levels {
+  overflow: hidden;
+  max-height: 0;
+  padding-top: 0;
+  transition: max-height 0.35s ease, padding-top 0.35s ease;
+}
+.part-tile{background:var(--glass);padding:10px;border-radius:8px;color:var(--muted);margin-bottom:8px;border:1px solid rgba(255,255,255,0.02);outline:none}
+.part-tile:hover{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));}
+.part-tile:focus{box-shadow:0 0 0 3px rgba(92,232,255,0.06);border-color:rgba(92,232,255,0.08)}
+.level-btn{display:inline-block;margin:6px 6px 0 0;padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--bg-1);font-weight:600;background:linear-gradient(90deg,var(--accent-2),var(--accent));box-shadow:0 6px 14px rgba(6,182,212,0.12)}
 
-    footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-    footer a{color:var(--accent-2);text-decoration:none;font-weight:600}
+footer{margin-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+footer a{color:var(--accent-2);text-decoration:none;font-weight:600}
 
-    /* SVG animation tweaks to glow slightly */
-    svg [class*="bubble"], svg .micro-cell, svg .paw-beat, svg .strata, svg .chem-bubble, svg .sprout-leaf, svg .math-rot, svg .stat-bar { filter: drop-shadow(0 6px 10px rgba(6,182,212,0.08)); }
+/* SVG animation tweaks to glow slightly */
+svg [class*="bubble"], svg .micro-cell, svg .paw-beat, svg .strata, svg .chem-bubble, svg .sprout-leaf, svg .math-rot, svg .stat-bar { filter: drop-shadow(0 6px 10px rgba(6,182,212,0.08)); }
 
-    @media (max-width:540px){.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+@media (max-width:540px){.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+```
 
   </style>
 </head>
@@ -67,207 +80,304 @@
       <p>All collapsed • Click a card to expand</p>
     </header>
 
-    <section class="how-to-use" aria-labelledby="howto-heading">
-      <h2 id="howto-heading" style="margin:0 0 6px 0;color:var(--accent-2)">How to use</h2>
-      <p style="margin:0;color:var(--muted)">Click a department card to expand it. Parts show sub-levels when present. Click a level to open the Google Drive folder in a new tab.</p>
-    </section>
+```
+<section class="how-to-use" aria-labelledby="howto-heading">
+  <h2 id="howto-heading" style="margin:0 0 6px 0;color:var(--accent-2)">How to use</h2>
+  <p style="margin:0;color:var(--muted)">
+    1. Find the department <strong>offering the course you want to study</strong> (e.g., Chemistry for CHM203).<br>
+    2. Click the department card to open it.<br>
+    3. Choose your level (100, 200, 300, 400).<br>
+    4. Browse courses and click a course to open its materials in Google Drive.<br>
+    5. If you don't see a course here, check other departments — courses are sometimes shared.
+  </p>
+</section>
 
-    <main class="grid" id="grid" role="list">
+<main class="grid" id="grid" role="list">
 
-      <!-- Biochemistry -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Biochemistry">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <!-- cyan-biochem bubbling flask -->
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(8,6)"><path d="M12 2h24l-8 26v10H20V28L12 2z" fill="#e6fff8" stroke="#7fe6db" stroke-width="0.6"/><g transform="translate(10,34)"><circle class="bio-bubble" cx="2" cy="8" r="2" fill="#9ff4e6"/><circle class="bio-bubble" cx="8" cy="6" r="1.6" fill="#6feed8"/><circle class="bio-bubble" cx="14" cy="9" r="1.8" fill="#39e0c6"/></g></g></svg>
-          </div>
-          <div><div class="title">Biochemistry</div><div class="subtitle">100-400 Levels</div></div>
+  <!-- Biochemistry -->
+  <article class="card" role="listitem" tabindex="0" data-target="Biochemistry" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <!-- cyan-biochem bubbling flask -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(8,6)"><path d="M12 2h24l-8 26v10H20V28L12 2z" fill="#e6fff8" stroke="#7fe6db" stroke-width="0.6"/><g transform="translate(10,34)"><circle class="bio-bubble" cx="2" cy="8" r="2" fill="#9ff4e6"/><circle class="bio-bubble" cx="8" cy="6" r="1.6" fill="#6feed8"/><circle class="bio-bubble" cx="14" cy="9" r="1.8" fill="#39e0c6"/></g></g></svg>
+      </div>
+      <div><div class="title">Biochemistry</div><div class="subtitle">100-400 Levels</div></div>
+    </div>
+    <div class="parts" id="Biochemistry" aria-hidden="true">
+      <div class="part-tile" data-part="Biochemistry">
+        Biochemistry
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1V53TnH6kOC_tq6Td00IHmr-PD2QOBxZ4" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1B3Izh9GMrwpYSfNvMIy8KQer2_gsAePW" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1b4puGrfCmgpv6GOjRc1E8Jv6XyP04ksM" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1rT-Bblo6nmXdwONoUoYI4oTfcjyLGIm9" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Biochemistry" aria-hidden="true">
-          <div class="part-tile">Biochemistry
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1V53TnH6kOC_tq6Td00IHmr-PD2QOBxZ4" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1B3Izh9GMrwpYSfNvMIy8KQer2_gsAePW" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1b4puGrfCmgpv6GOjRc1E8Jv6XyP04ksM" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1rT-Bblo6nmXdwONoUoYI4oTfcjyLGIm9" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-        </div>
-      </article>
+      </div>
+    </div>
+  </article>
 
-      <!-- Botany -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Botany">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(10,10)"><rect x="6" y="26" width="6" height="10" rx="1.2" fill="#7cc57c"/><g transform="translate(0,22)"><path class="sprout-leaf" d="M12 0 C8 -6 4 -6 2 0 C4 -2 8 -4 12 0 Z" fill="#bff3b6" transform="translate(0,-6)"/><path class="sprout-leaf" d="M28 0 C24 -8 20 -8 18 0 C20 -3 24 -6 28 0 Z" fill="#95e07b" transform="translate(-6,-8)"/></g></g></svg>
-          </div>
-          <div><div class="title">Botany</div><div class="subtitle">100-400 Levels</div></div>
+  <!-- Botany -->
+  <article class="card" role="listitem" tabindex="0" data-target="Botany" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(10,10)"><rect x="6" y="26" width="6" height="10" rx="1.2" fill="#7cc57c"/><g transform="translate(0,22)"><path class="sprout-leaf" d="M12 0 C8 -6 4 -6 2 0 C4 -2 8 -4 12 0 Z" fill="#bff3b6" transform="translate(0,-6)"/><path class="sprout-leaf" d="M28 0 C24 -8 20 -8 18 0 C20 -3 24 -6 28 0 Z" fill="#95e07b" transform="translate(-6,-8)"/></g></g></svg>
+      </div>
+      <div><div class="title">Botany</div><div class="subtitle">100-400 Levels</div></div>
+    </div>
+    <div class="parts" id="Botany" aria-hidden="true">
+      <div class="part-tile" data-part="Botany">
+        Botany
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1A3EXiwmxtCw-r4D4XwJXp_ubXdrZNxpQ" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1MmgWkGgm2UBcTBAJa4Z87_MYAllm7BTk" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1W_7TIPIl7y01tWOZchUsgfutP1RvEjSK" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1MfGzRXGgs0vNmk8yGdiUXGnlbaCsHgpP" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Botany" aria-hidden="true">
-          <div class="part-tile">Botany
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1A3EXiwmxtCw-r4D4XwJXp_ubXdrZNxpQ" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1MmgWkGgm2UBcTBAJa4Z87_MYAllm7BTk" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1W_7TIPIl7y01tWOZchUsgfutP1RvEjSK" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1MfGzRXGgs0vNmk8yGdiUXGnlbaCsHgpP" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-        </div>
-      </article>
+      </div>
+    </div>
+  </article>
 
-      <!-- Chemistry -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Chemistry">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="cyang1" x1="0" x2="1"><stop offset="0" stop-color="#5ce8ff"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs><g fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="52" height="52" rx="8" fill="rgba(92,232,255,0.02)"/><g transform="translate(12,10)"><path d="M8 2h16l-6 20v8H14v-8L8 2z" fill="url(#cyang1)" opacity="0.95" stroke="rgba(0,0,0,0.06)"/><g transform="translate(6,30)"><circle class="chem-bubble" cx="2" cy="8" r="2" fill="#e6fbff" /><circle class="chem-bubble" cx="8" cy="6" r="1.4" fill="#bff5fb" /><circle class="chem-bubble" cx="14" cy="9" r="1.8" fill="#9feff8" /></g></g></g></svg>
-          </div>
-          <div><div class="title">Chemistry</div><div class="subtitle">Chemistry • Industrial Chemistry</div></div>
+  <!-- Chemistry -->
+  <article class="card" role="listitem" tabindex="0" data-target="Chemistry" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="cyang1" x1="0" x2="1"><stop offset="0" stop-color="#5ce8ff"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs><g fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="52" height="52" rx="8" fill="rgba(92,232,255,0.02)"/><g transform="translate(12,10)"><path d="M8 2h16l-6 20v8H14v-8L8 2z" fill="url(#cyang1)" opacity="0.95" stroke="rgba(0,0,0,0.06)"/><g transform="translate(6,30)"><circle class="chem-bubble" cx="2" cy="8" r="2" fill="#e6fbff" /><circle class="chem-bubble" cx="8" cy="6" r="1.4" fill="#bff5fb" /><circle class="chem-bubble" cx="14" cy="9" r="1.8" fill="#9feff8" /></g></g></g></svg>
+      </div>
+      <div><div class="title">Chemistry</div><div class="subtitle">Chemistry • Industrial Chemistry</div></div>
+    </div>
+    <div class="parts" id="Chemistry" aria-hidden="true">
+      <div class="part-tile" data-part="Chemistry">
+        Chemistry
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1ttdld-cKaSG8P_fd8c_6RhvnGPbsGD_k" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1A-vDBSQpzoDKdCAfeUkCtxP2laN6Dks8" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1gs8qV9wXF9aPffcFothOe5jB1NRNAZM0" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1b90bJNRkPLqjJBVio67e3zw4Y7ACPYX0" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Chemistry" aria-hidden="true">
-          <div class="part-tile">Chemistry
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1ttdld-cKaSG8P_fd8c_6RhvnGPbsGD_k" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1A-vDBSQpzoDKdCAfeUkCtxP2laN6Dks8" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1gs8qV9wXF9aPffcFothOe5jB1NRNAZM0" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1b90bJNRkPLqjJBVio67e3zw4Y7ACPYX0" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-          <div class="part-tile">Industrial Chemistry
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1832byJBdez4mXjtzggaP51KtGfGaSHSO" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1jAt9ieSYY8bHkEG-LW6uFy7UlySygJLU" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1aBizJAw6-bIInJaHs6APT1MijtJYz5eE" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1p9A5eLoKlsHZsflmLzI1jcVGbIBIUfxm" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
+      </div>
+      <div class="part-tile" data-part="Industrial Chemistry">
+        Industrial Chemistry
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1832byJBdez4mXjtzggaP51KtGfGaSHSO" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1jAt9ieSYY8bHkEG-LW6uFy7UlySygJLU" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1aBizJAw6-bIInJaHs6APT1MijtJYz5eE" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1p9A5eLoKlsHZsflmLzI1jcVGbIBIUfxm" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-      </article>
+      </div>
+    </div>
+  </article>
 
-      <!-- Geology -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Geology">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(6,8)"><rect width="52" height="40" rx="6" fill="#eaf8fb"/><g class="strata" fill="#cceff4"><rect y="28" width="52" height="6" rx="3"/><rect y="20" width="52" height="6" rx="3"/><rect y="12" width="52" height="6" rx="3"/></g></g></svg>
-          </div>
-          <div><div class="title">Geology</div><div class="subtitle">Geology • Geophysics</div></div>
+  <!-- Geology -->
+  <article class="card" role="listitem" tabindex="0" data-target="Geology" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(6,8)"><rect width="52" height="40" rx="6" fill="#eaf8fb"/><g class="strata" fill="#cceff4"><rect y="28" width="52" height="6" rx="3"/><rect y="20" width="52" height="6" rx="3"/><rect y="12" width="52" height="6" rx="3"/></g></g></svg>
+      </div>
+      <div><div class="title">Geology</div><div class="subtitle">Geology • Geophysics</div></div>
+    </div>
+    <div class="parts" id="Geology" aria-hidden="true">
+      <div class="part-tile" data-part="Geology">
+        Geology
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1gunbLvZdfD0t71bQ1PVPf_0lC9DSWRR9" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1lhg-KlbxG7Vipfhg3wHfC9tRIbMFrIEg" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1o61L_Azrp_1Zl5rsQD8peFWoTGf68_uq" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1yeZfaR5gu5lsmfZpQt7KHksiigNIiInI" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Geology" aria-hidden="true">
-          <div class="part-tile">Geology
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1gunbLvZdfD0t71bQ1PVPf_0lC9DSWRR9" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1lhg-KlbxG7Vipfhg3wHfC9tRIbMFrIEg" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1o61L_Azrp_1Zl5rsQD8peFWoTGf68_uq" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1yeZfaR5gu5lsmfZpQt7KHksiigNIiInI" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-          <div class="part-tile">Geophysics
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1Ir8b3ESOAPJLWV4wOg7NhrycNZqa1MI3" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1-s0um4-h73lA-9liw-ON23Xs4Gu0ONxi" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1tBh8I_TMfo71H59byS_9ClGhFaXfbrPs" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1SnZwdHCc45LfJXGXdAdDJCYxGUj6pbtZ" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
+      </div>
+      <div class="part-tile" data-part="Geophysics">
+        Geophysics
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1Ir8b3ESOAPJLWV4wOg7NhrycNZqa1MI3" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1-s0um4-h73lA-9liw-ON23Xs4Gu0ONxi" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1tBh8I_TMfo71H59byS_9ClGhFaXfbrPs" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1SnZwdHCc45LfJXGXdAdDJCYxGUj6pbtZ" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-      </article>
+      </div>
+    </div>
+  </article>
 
-      <!-- Mathematics -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Mathematics">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g class="math-rot" transform="translate(10,10)"><text x="6" y="20" font-size="12" fill="#dff8ff" font-weight="700">π</text><text x="20" y="20" font-size="12" fill="#bff4ff" font-weight="700">√</text><text x="34" y="20" font-size="12" fill="#9feaff" font-weight="700">∑</text></g></svg>
-          </div>
-          <div><div class="title">Mathematics</div><div class="subtitle">Mathematics • Statistics</div></div>
+  <!-- Mathematics -->
+  <article class="card" role="listitem" tabindex="0" data-target="Mathematics" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g class="math-rot" transform="translate(10,10)"><text x="6" y="20" font-size="12" fill="#dff8ff" font-weight="700">π</text><text x="20" y="20" font-size="12" fill="#bff4ff" font-weight="700">√</text><text x="34" y="20" font-size="12" fill="#9feaff" font-weight="700">∑</text></g></svg>
+      </div>
+      <div><div class="title">Mathematics</div><div class="subtitle">Mathematics • Statistics</div></div>
+    </div>
+    <div class="parts" id="Mathematics" aria-hidden="true">
+      <div class="part-tile" data-part="Mathematics">
+        Mathematics
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/19Pcj8Y1vQojsyDMP8NAqP2Wg87ZYayQB" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1vCV275PpbGmQzSvB82tVHnVCysZ4LrBt" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1pJu8u1gZYfpH0QjCGQO-FxwmBUfyVviC" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1aXjHI-_jnG8obVtHmSee-ugZuVWE75QJ" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Mathematics" aria-hidden="true">
-          <div class="part-tile">Mathematics
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/19Pcj8Y1vQojsyDMP8NAqP2Wg87ZYayQB" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1vCV275PpbGmQzSvB82tVHnVCysZ4LrBt" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1pJu8u1gZYfpH0QjCGQO-FxwmBUfyVviC" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1aXjHI-_jnG8obVtHmSee-ugZuVWE75QJ" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-          <div class="part-tile">Statistics
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1rePRfVOIh03ZrhhWwcbPEvIIed6nEzTc" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1hmOKBj3d2iN294JyWUiAQVte93egO4D-" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1fJ-gb70vCul-wjp0hxcHnoSlhs661aAs" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1RPXy_BZvhmo-EnlJw2hq7Z8qxaCnz73q" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
+      </div>
+      <div class="part-tile" data-part="Statistics">
+        Statistics
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1rePRfVOIh03ZrhhWwcbPEvIIed6nEzTc" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1hmOKBj3d2iN294JyWUiAQVte93egO4D-" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1fJ-gb70vCul-wjp0hxcHnoSlhs661aAs" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1RPXy_BZvhmo-EnlJw2hq7Z8qxaCnz73q" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-      </article>
+      </div>
+    </div>
+  </article>
 
-      <!-- Microbiology -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Microbiology">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(6,6)"><circle class="micro-cell" cx="20" cy="18" r="6" fill="#dff" opacity="0.95"/><circle class="micro-cell" cx="36" cy="28" r="4" fill="#bff" opacity="0.9" style="animation-delay:0.6s"/><g class="micro-cell" style="animation-delay:1.2s"><circle cx="12" cy="30" r="2.6" fill="#e6ffff" /></g></g></svg>
-          </div>
-          <div><div class="title">Microbiology</div><div class="subtitle">100-400 Levels</div></div>
+  <!-- Microbiology -->
+  <article class="card" role="listitem" tabindex="0" data-target="Microbiology" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(6,6)"><circle class="micro-cell" cx="20" cy="18" r="6" fill="#dff" opacity="0.95"/><circle class="micro-cell" cx="36" cy="28" r="4" fill="#bff" opacity="0.9" style="animation-delay:0.6s"/><g class="micro-cell" style="animation-delay:1.2s"><circle cx="12" cy="30" r="2.6" fill="#e6ffff" /></g></g></svg>
+      </div>
+      <div><div class="title">Microbiology</div><div class="subtitle">100-400 Levels</div></div>
+    </div>
+    <div class="parts" id="Microbiology" aria-hidden="true">
+      <div class="part-tile" data-part="Microbiology">
+        Microbiology
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1ZxGS43Vvg7zCGUVECAe8nTm46Js8maml" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1vnWu64f62T39HYaG59eHp7QbwmAFeAPj" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1pwZpsfwHjK2cMFMG6RF1JGwB7sOMocnd" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1fBALGA9hjzjxqoOVzwCZG6aT50fR5JFl" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Microbiology" aria-hidden="true">
-          <div class="part-tile">Microbiology
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1ZxGS43Vvg7zCGUVECAe8nTm46Js8maml" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1vnWu64f62T39HYaG59eHp7QbwmAFeAPj" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1pwZpsfwHjK2cMFMG6RF1JGwB7sOMocnd" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1fBALGA9hjzjxqoOVzwCZG6aT50fR5JFl" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-        </div>
-      </article>
+      </div>
+    </div>
+  </article>
 
-      <!-- Physics -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Physics">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(6,8)"><g class="orbit1"><ellipse cx="26" cy="22" rx="14" ry="6" fill="none" stroke="#bff" stroke-width="1.2"/></g><g class="orbit2"><ellipse cx="32" cy="22" rx="10" ry="4" fill="none" stroke="#9fe" stroke-width="1.2"/></g><circle cx="28" cy="22" r="2.2" fill="#dff"/></g></svg>
-          </div>
-          <div><div class="title">Physics</div><div class="subtitle">Engineering Physics • Physics • SLT</div></div>
+  <!-- Physics -->
+  <article class="card" role="listitem" tabindex="0" data-target="Physics" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(6,8)"><g class="orbit1"><ellipse cx="26" cy="22" rx="14" ry="6" fill="none" stroke="#bff" stroke-width="1.2"/></g><g class="orbit2"><ellipse cx="32" cy="22" rx="10" ry="4" fill="none" stroke="#9fe" stroke-width="1.2"/></g><circle cx="28" cy="22" r="2.2" fill="#dff"/></g></svg>
+      </div>
+      <div><div class="title">Physics</div><div class="subtitle">Engineering Physics • Physics • SLT</div></div>
+    </div>
+    <div class="parts" id="Physics" aria-hidden="true">
+      <div class="part-tile" data-part="Engineering Physics">
+        Engineering Physics
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1jqxM5g1ZxvrBTJ2sN1ItH5nihZf0CAfH" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1Aet3wl1MvtED7uakJEATUXV3IaMTI44W" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1sW0pI3WTHngqK9LCIHNhe2JnclJ_cXds" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/10vg-Nc5G5Rlyxx38I7K0hGCqTeJkSh2E" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Physics" aria-hidden="true">
-          <div class="part-tile">Engineering Physics
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1jqxM5g1ZxvrBTJ2sN1ItH5nihZf0CAfH" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1Aet3wl1MvtED7uakJEATUXV3IaMTI44W" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1sW0pI3WTHngqK9LCIHNhe2JnclJ_cXds" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/10vg-Nc5G5Rlyxx38I7K0hGCqTeJkSh2E" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-          <div class="part-tile">Physics
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1RLc-a5Wy0CkhRaU3eOEA7kAWXGTD5d9d" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1wf4HVbhVrY-Nh9mYiL5DP9rmxSqRYRvf" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1UWQKPD1nIdGu-Hv5gGIM-NxWXHxREqcJ" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1JpnS242QNtTk06ISwmV1M0PYvW4_qZ1x" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-          <div class="part-tile">Science Laboratory Technology
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1R88y9APbAD06qqwR9fNurLLpl1otx1rS" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1OuNqiy_o-30ovACQqLffuhAaNR0GM_iN" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1f9tXVoP49WI2HxHybcYYgotFfsMeCWb3" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1GPDc-eale1d_BWkq_l3mk8Xzp41TzcUA" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
+      </div>
+      <div class="part-tile" data-part="Physics">
+        Physics
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1RLc-a5Wy0CkhRaU3eOEA7kAWXGTD5d9d" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1wf4HVbhVrY-Nh9mYiL5DP9rmxSqRYRvf" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1UWQKPD1nIdGu-Hv5gGIM-NxWXHxREqcJ" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1JpnS242QNtTk06ISwmV1M0PYvW4_qZ1x" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-      </article>
+      </div>
+      <div class="part-tile" data-part="Science Laboratory Technology">
+        Science Laboratory Technology
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1R88y9APbAD06qqwR9fNurLLpl1otx1rS" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1OuNqiy_o-30ovACQqLffuhAaNR0GM_iN" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1f9tXVoP49WI2HxHybcYYgotFfsMeCWb3" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1GPDc-eale1d_BWkq_l3mk8Xzp41TzcUA" target="_blank" rel="noopener noreferrer">400 Level</a>
+        </div>
+      </div>
+    </div>
+  </article>
 
-      <!-- Zoology -->
-      <article class="card" role="listitem" tabindex="0" onclick="toggleCard(this)" data-target="Zoology">
-        <div class="card-header">
-          <div class="svg-wrap" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g class="paw-beat" transform="translate(6,6)"><ellipse cx="18" cy="14" rx="4" ry="5" fill="#fff6e6"/><ellipse cx="28" cy="12" rx="3.5" ry="4" fill="#fff6e6"/><ellipse cx="36" cy="14" rx="3.5" ry="4" fill="#fff6e6"/><path d="M12 30 C18 22 40 22 46 30 C40 40 18 40 12 30 Z" fill="#fff0df"/></g></svg>
-          </div>
-          <div><div class="title">Zoology</div><div class="subtitle">100-400 Levels</div></div>
+  <!-- Zoology -->
+  <article class="card" role="listitem" tabindex="0" data-target="Zoology" aria-expanded="false">
+    <div class="card-header">
+      <div class="svg-wrap" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g class="paw-beat" transform="translate(6,6)"><ellipse cx="18" cy="14" rx="4" ry="5" fill="#fff6e6"/><ellipse cx="28" cy="12" rx="3.5" ry="4" fill="#fff6e6"/><ellipse cx="36" cy="14" rx="3.5" ry="4" fill="#fff6e6"/><path d="M12 30 C18 22 40 22 46 30 C40 40 18 40 12 30 Z" fill="#fff0df"/></g></svg>
+      </div>
+      <div><div class="title">Zoology</div><div class="subtitle">100-400 Levels</div></div>
+    </div>
+    <div class="parts" id="Zoology" aria-hidden="true">
+      <div class="part-tile" data-part="Zoology">
+        Zoology
+        <div class="levels" style="margin-top:8px">
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1RFuCZ3owuBPgUH6mLa55J3ng5s2lvJck" target="_blank" rel="noopener noreferrer">100 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1Zei90VsJ_mCKBqV8pyYQs4-36ucfGqO1" target="_blank" rel="noopener noreferrer">200 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/1NhQ25ULMS2Y9I2lpAzSymSGwisio78wY" target="_blank" rel="noopener noreferrer">300 Level</a>
+          <a class="level-btn" href="https://drive.google.com/drive/folders/14BDI2HrazovOkqgn0ei9qEMvbte_0aaX" target="_blank" rel="noopener noreferrer">400 Level</a>
         </div>
-        <div class="parts" id="Zoology" aria-hidden="true">
-          <div class="part-tile">Zoology
-            <div class="levels" style="margin-top:8px"><a class="level-btn" href="https://drive.google.com/drive/folders/1RFuCZ3owuBPgUH6mLa55J3ng5s2lvJck" target="_blank" rel="noopener noreferrer">100 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1Zei90VsJ_mCKBqV8pyYQs4-36ucfGqO1" target="_blank" rel="noopener noreferrer">200 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/1NhQ25ULMS2Y9I2lpAzSymSGwisio78wY" target="_blank" rel="noopener noreferrer">300 Level</a><a class="level-btn" href="https://drive.google.com/drive/folders/14BDI2HrazovOkqgn0ei9qEMvbte_0aaX" target="_blank" rel="noopener noreferrer">400 Level</a></div>
-          </div>
-        </div>
-      </article>
+      </div>
+    </div>
+  </article>
 
-    </main>
+</main>
 
-    <footer>
-      <div>Contact: <a href="mailto:nasselibrary@gmail.com">nasselibrary@gmail.com</a></div>
-      <div>Brought to You By <strong>TEAM EXCELSIOR</strong></div>
-    </footer>
+<footer>
+  <div>Contact: <a href="mailto:nasselibrary@gmail.com">nasselibrary@gmail.com</a></div>
+  <div>Brought to You By <strong>TEAM EXCELSIOR</strong></div>
+</footer>
+```
+
   </div>
 
   <script>
-    // Toggle card expansion
-    function toggleCard(card){
-      const target = card.getAttribute('data-target');
-      const parts = document.getElementById(target);
-      const expanded = parts.style.display === 'block';
-      parts.style.display = expanded ? 'none' : 'block';
-      parts.setAttribute('aria-hidden', expanded ? 'true' : 'false');
-      // set visual focus state
-      if(!expanded) card.classList.add('open'); else card.classList.remove('open');
-    }
-
-    // toggle levels inside part tile (if needed)
-    function toggleLevels(el){
-      const levels = el.querySelector('.levels');
-      const showing = levels.style.display === 'block';
-      levels.style.display = showing ? 'none' : 'block';
-    }
-
-    // keyboard accessibility
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){
-        const active = document.activeElement;
-        if(active && active.classList.contains('card')){ active.click(); e.preventDefault(); }
-        if(active && active.classList.contains('part-tile')){ active.click(); e.preventDefault(); }
-      }
-    });
-  
-    // Enable clicking part-tile to toggle its levels with animation
-    document.querySelectorAll('.part-tile').forEach(tile => {
-      tile.style.cursor = 'pointer';
-      const levels = tile.querySelector('.levels');
-      if (levels) {
-        levels.style.overflow = 'hidden';
-        levels.style.maxHeight = '0';
-        levels.style.transition = 'max-height 0.35s ease, padding 0.35s ease';
-        levels.style.display = 'block'; // keep it in DOM for animation
-        levels.style.paddingTop = '0';
-        tile.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (levels.style.maxHeight === '0px' || levels.style.maxHeight === '0') {
-            levels.style.maxHeight = levels.scrollHeight + 'px';
-            levels.style.paddingTop = '8px';
-          } else {
-            levels.style.maxHeight = '0';
-            levels.style.paddingTop = '0';
+    // Improved toggle logic:
+    // - Only one department opens at a time
+    // - Part tiles toggle their internal levels with smooth height animation
+    // - Keyboard accessible (Enter/Space) for cards and part-tiles
+    (function () {
+      function closeAllParts(exceptId) {
+        document.querySelectorAll('.parts').forEach(p => {
+          if (p.id !== exceptId) {
+            p.style.display = 'none';
+            p.setAttribute('aria-hidden', 'true');
+            const parentCard = p.closest('.card');
+            if (parentCard) parentCard.classList.remove('open');
+            if (parentCard) parentCard.setAttribute('aria-expanded', 'false');
+            // collapse any open levels inside
+            p.querySelectorAll('.levels').forEach(l => {
+              l.style.maxHeight = '0';
+              l.style.paddingTop = '0';
+              const tile = l.closest('.part-tile');
+              if (tile) tile.classList.remove('open-part');
+            });
           }
         });
       }
-    });
-    </script>
-</body>
-</html>
+
+      window.toggleCard = function (card) {
+        const target = card.getAttribute('data-target');
+        if (!target) return;
+        const parts = document.getElementById(target);
+        if (!parts) return;
+        const isOpen = parts.style.display === 'block';
+
+        // close others
+        closeAllParts(isOpen ? null : target);
+
+        if (isOpen) {
+          parts.style.display = 'none';
+          parts.setAttribute('aria-hidden', 'true');
+          card.classList.remove('open');
+          card.setAttribute('aria-expanded', 'false');
+        } else {
+          parts.style.display = 'block';
+          parts.setAttribute('aria-hidden', 'false');
+          card.classList.add('open');
+          card.setAttribute('aria-expanded', 'true');
+          // ensure all internal levels are collapsed initially
+          parts.querySelectorAll('.levels').forEach(l => {
+            l.style.maxHeight = '0';
+            l.style.paddingTop = '0';
+            const tile = l.closest('.part-tile');
+            if (tile) tile.classList.remove('open-part');
+          });
+        }
+      };
+
+      // part-tile behavior (click to toggle inner levels)
+      document.querySelectorAll('.part-tile').forEach(tile => {
+        // make focusable
+        if (!tile.hasAttribute('tabindex')) tile.setAttribute('tabindex', '0');
+
+        const levels = tile.querySelector('.levels');
+        if (!levels) return;
+  
